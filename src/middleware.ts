@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
 
   const isPublicPath = path === '/admin/login'
 
-  const token = request.cookies.get('auth').value
+  const token = request.cookies.get('auth')?.value || ""
   console.log(token);
 
   if(token) {
