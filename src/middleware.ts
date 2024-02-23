@@ -5,16 +5,20 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
+  console.log(path);
+
   const isPublicPath = path === '/admin/login'
 
-  const token = request.cookies.get('auth') || ''
+  const token = request.cookies.get('auth').value
   console.log(token);
 
-  if(isPublicPath && token) {
+  if(token) {
+    console.log("hi")
     return NextResponse.redirect(new URL('/dashboard', request.nextUrl))
   }
-
-  if (!isPublicPath && !token) {
+  
+  if (!token) {
+    console.log("ho")
     return NextResponse.redirect(new URL('/admin/login', request.nextUrl))
   }
     
